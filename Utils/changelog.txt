@@ -1,0 +1,6 @@
++ poprawka
+> nowa opcja
+^ usprawnienie
+- informacja
+-----------------
++ Szybka poprawka krytyków
