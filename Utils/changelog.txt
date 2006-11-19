@@ -1,0 +1,10 @@
++ poprawka
+> nowa opcja
+^ usprawnienie
+- informacja
+-----------------
+> Opcja, czy wtyczka ma zwracaæ uwagê na wielkoœæ liter
+> Mo¿liwoœæ wyboru, gdzie ma byæ przycisk "Szukaj na liœcie"
+> Wyszukiwanie za pomoc¹ wyra¿eñ regularnych
++ Lepszy sposób wykrywania, czy dla kontaktu mo¿na otworzyæ okno rozmowy (by Aule)
+^ "Szukana wartoœæ" zmienione na "Znaleziona wartoœæ"
