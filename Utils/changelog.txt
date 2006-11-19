@@ -1,0 +1,8 @@
++ poprawka
+> nowa opcja
+^ usprawnienie
+- informacja
+-----------------
+^ Przyciski toolbara deaktywuj¹ siê
++ Poprawiono problemy z sortowaniem
+> Po klikniêciu prawym przyciskiem na znaleziony kontakt wyœwietla siê jego menu kontekstowe
