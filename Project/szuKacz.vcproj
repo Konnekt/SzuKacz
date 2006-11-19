@@ -290,6 +290,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Utilities Files"
+			>
+			<File
+				RelativePath="..\Utils\changelog.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\Utils\szuKacz.gif"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
