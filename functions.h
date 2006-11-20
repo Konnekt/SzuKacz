@@ -13,4 +13,6 @@ namespace szuKacz
 
 	//funkcja obs³uguj¹ca edit szybkiego wyszukiwania
 	LRESULT CALLBACK QuickSearchEditProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
+
+	void QuickSearchToolbarRefresh(bool Move = 0);
 }

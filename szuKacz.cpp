@@ -250,8 +250,6 @@ namespace szuKacz
 				SendMessage(szuKacz::QuickSearchEdit, WM_SETFONT, (WPARAM)font, 0);
 			}
 
-			szuKacz::QuickSearchToolbarVisible = 0;
-
 			//subclassujemy g³ówne okno programu, …
 			szuKacz::old_main_wnd_proc = (WNDPROC)SetWindowLongPtr(szuKacz::KonnektMainWindow, GWLP_WNDPROC, (LONG_PTR)szuKacz::KonnektMainWindowProc);
 
@@ -307,13 +305,7 @@ namespace szuKacz
 						ShowWindow(szuKacz::QuickSearchToolbar, SW_SHOWNORMAL);
 						ShowWindow(szuKacz::QuickSearchEdit, SW_SHOWNORMAL);
 
-						RECT rc1;
-						GetWindowRect(szuKacz::CNTListWindow, &rc1);
-						int ToolbarWidth = rc1.right - rc1.left - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_VSCROLL) ? GetSystemMetrics(SM_CXVSCROLL) : 0);
-						MoveWindow(szuKacz::QuickSearchToolbar, rc1.left, rc1.bottom - 22 - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_HSCROLL) ? GetSystemMetrics(SM_CXHSCROLL) : 0), ToolbarWidth, 22, 1);
-						int width = LOWORD(SendMessage(szuKacz::QuickSearchToolbar, TB_GETBUTTONSIZE, 0, 0));
-						SendMessage(szuKacz::QuickSearchToolbar, TB_SETINDENT, ToolbarWidth - (4 * width), 0);
-						MoveWindow(szuKacz::QuickSearchEdit, 0, 1, ToolbarWidth - (4 * width), 20, 1);
+						szuKacz::QuickSearchToolbarRefresh(szuKacz::QuickSearchToolbarMoved);
 
 						SetFocus(szuKacz::QuickSearchEdit);
 						SendMessage(szuKacz::QuickSearchEdit, EM_SETSEL, 0, -1);
@@ -322,6 +314,8 @@ namespace szuKacz
 					}
 					else
 					{
+						szuKacz::QuickSearchToolbarRefresh(0);
+
 						ShowWindow(szuKacz::QuickSearchEdit, SW_HIDE);
 						ShowWindow(szuKacz::QuickSearchToolbar, SW_HIDE);
 

@@ -63,6 +63,8 @@ namespace szuKacz
 	//funkcja zaznaczaj¹ca na liœcie kontakt o podanym ID
 	void SelectCNT(HWND ListView, int CNT)
 	{
+		szuKacz::QuickSearchToolbarRefresh(0);
+
 		const int ListCount = ListView_GetItemCount(ListView);
 		LVITEM lvi;
 		lvi.iSubItem = 0;
@@ -78,7 +80,12 @@ namespace szuKacz
 				RECT rc2;
 				GetWindowRect(szuKacz::CNTListWindow, &rc);
 				ListView_GetItemRect(ListView, i, (LPARAM)&rc2, LVIR_SELECTBOUNDS);
-				if(rc2.bottom > rc.bottom - rc.top - 22)
+				if(rc2.bottom > rc.bottom - rc.top - 22 && i == ListCount - 1 && !ListView_IsGroupViewEnabled(szuKacz::CNTListWindow))
+				{
+					SendMessage(szuKacz::CNTListWindow, WM_VSCROLL, SB_BOTTOM, 0);
+					szuKacz::QuickSearchToolbarRefresh(1);
+				}
+				else if(rc2.bottom > rc.bottom - rc.top - 22)
 				{
 					ListView_Scroll(ListView, 0, rc2.bottom - (rc.bottom - rc.top - 22));
 					ListView_Scroll(ListView, 0, 1);

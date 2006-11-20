@@ -23,4 +23,5 @@ namespace szuKacz
 	extern HWND KonnektMainWindow; //uchwyt g³ównego okna K
 	extern HWND CNTListWindow; //uchwyt okna listy kontkatów
 	extern bool QuickSearchToolbarVisible; //czy toolbar szybkiego wyszukiwania jest ukryty
+	extern bool QuickSearchToolbarMoved; //czy toolbar szybkiego wyszukiwania jest przesuniêty
 }

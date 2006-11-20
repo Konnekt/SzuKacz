@@ -23,5 +23,6 @@ namespace szuKacz
 	std::list<szuKacz::Result>::iterator* CurrentResult; //ostatni zaznaczony wynik
 	HWND KonnektMainWindow; //uchwyt g³ównego okna K
 	HWND CNTListWindow; //uchwyt okna listy kontkatów
-	bool QuickSearchToolbarVisible; //czy toolbar szybkiego wyszukiwania jest ukryty
+	bool QuickSearchToolbarVisible = 0; //czy toolbar szybkiego wyszukiwania jest ukryty
+	bool QuickSearchToolbarMoved = 0; //czy toolbar szybkiego wyszukiwania jest przesuniêty
 }

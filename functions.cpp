@@ -254,13 +254,7 @@ namespace szuKacz
 			{
 				if(IsWindowVisible(szuKacz::KonnektMainWindow))
 				{
-					RECT rc1;
-					GetWindowRect(szuKacz::CNTListWindow, &rc1);
-					int ToolbarWidth = rc1.right - rc1.left - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_VSCROLL) ? GetSystemMetrics(SM_CXVSCROLL) : 0);
-					MoveWindow(szuKacz::QuickSearchToolbar, rc1.left, rc1.bottom - 22 - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_HSCROLL) ? GetSystemMetrics(SM_CXHSCROLL) : 0), ToolbarWidth, 22, 1);
-					int width = LOWORD(SendMessage(szuKacz::QuickSearchToolbar, TB_GETBUTTONSIZE, 0, 0));
-					SendMessage(szuKacz::QuickSearchToolbar, TB_SETINDENT, ToolbarWidth - (4 * width), 0);
-					MoveWindow(szuKacz::QuickSearchEdit, 0, 1, ToolbarWidth - (4 * width), 20, 1);
+					szuKacz::QuickSearchToolbarRefresh(szuKacz::QuickSearchToolbarMoved);
 				}
 				else
 				{
@@ -307,6 +301,7 @@ namespace szuKacz
 					szuKacz::CurrentResult = 0;
 					szuKacz::QuickSearchResults.clear();
 					ListView_SetItemState(szuKacz::CNTListWindow, -1, 0, LVIS_SELECTED|LVIS_FOCUSED);
+					szuKacz::QuickSearchToolbarRefresh(0);
 
 					char buff[500];
 					SendMessage(szuKacz::QuickSearchEdit, WM_GETTEXT, 500, (LPARAM)&buff);
@@ -341,6 +336,7 @@ namespace szuKacz
 								(*szuKacz::CurrentResult)--;
 								ListView_SetItemState(szuKacz::CNTListWindow, -1, 0, LVIS_SELECTED|LVIS_FOCUSED);
 								SelectCNT(szuKacz::CNTListWindow, (*szuKacz::CurrentResult)->cnt);
+						
 							}
 							break;
 						}
@@ -403,5 +399,18 @@ namespace szuKacz
 		}
 
 		return CallWindowProc(szuKacz::QuickSearchEditOldProc, hwnd, iMsg, wParam, lParam);
+	}
+
+	void QuickSearchToolbarRefresh(bool Move)
+	{
+		szuKacz::QuickSearchToolbarMoved = Move;
+
+		RECT rc1;
+		GetWindowRect(szuKacz::CNTListWindow, &rc1);
+		int ToolbarWidth = rc1.right - rc1.left - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_VSCROLL) ? GetSystemMetrics(SM_CXVSCROLL) : 0);
+		MoveWindow(szuKacz::QuickSearchToolbar, rc1.left, rc1.bottom - (Move ? 40 : 22) - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_HSCROLL) ? GetSystemMetrics(SM_CXHSCROLL) : 0), ToolbarWidth, 22, 1);
+		int width = LOWORD(SendMessage(szuKacz::QuickSearchToolbar, TB_GETBUTTONSIZE, 0, 0));
+		SendMessage(szuKacz::QuickSearchToolbar, TB_SETINDENT, ToolbarWidth - (4 * width), 0);
+		MoveWindow(szuKacz::QuickSearchEdit, 0, 1, ToolbarWidth - (4 * width), 20, 1);
 	}
 }
