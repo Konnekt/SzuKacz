@@ -7,12 +7,4 @@ namespace szuKacz
 
 	//funkcja obs³uguj¹ca g³ówne okno
 	LRESULT CALLBACK KonnektMainWindowProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
-
-	//funkcja obs³uguj¹ca toolbar szybkiego wyszukiwania
-	LRESULT CALLBACK QuickSearchToolbarProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
-
-	//funkcja obs³uguj¹ca edit szybkiego wyszukiwania
-	LRESULT CALLBACK QuickSearchEditProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
-
-	void QuickSearchToolbarRefresh(bool Move = 0);
 }

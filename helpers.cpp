@@ -103,6 +103,30 @@ namespace szuKacz
 	//funkcja sprawdzaj¹ca, czy plugin o danym necie istnieje
 	int PluginExists(int net, int type)
 	{
-		return(Ctrl->ICMessage(IMC_FINDPLUG, net, type));
+		return Ctrl->ICMessage(IMC_FINDPLUG, net, type);
+	}
+
+	//funkcja otwieraj¹ca okno rozmowy dla danego kontaktu
+	void OpenMsgWindow(int CNT)
+	{
+		if(GetDefaultAction(CNT) == IMIA_CNT_MSG)
+		{
+			CallAction(IMIG_CNT, IMIA_CNT_MSG, CNT);
+		}
+	}
+
+	//funkcja otwieraj¹ca okno w³aœciwoœci dla danego kontaktu
+	void OpenInfoWindow(int CNT)
+	{
+		CallAction(IMIA_NFO_DETAILS_NET, IMIA_MSG_INFO, CNT);
+	}
+
+	//funkcja odpalaj¹ca domyœln¹ akcjê
+	void CallDefaultAction(int CNT)
+	{
+		if(GetDefaultAction(CNT) != -1)
+		{
+			CallAction(IMIG_CNT, GetDefaultAction(CNT), CNT);
+		}
 	}
 }

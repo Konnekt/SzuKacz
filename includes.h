@@ -8,3 +8,4 @@
 #include "window.h"
 #include "functions.h"
 #include "helpers.h"
+#include "QuickSearch.h"

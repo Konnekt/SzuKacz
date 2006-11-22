@@ -34,8 +34,25 @@ namespace szuKacz
 			{
 				IMLOG("[WindowProc]: iMsg = WM_CLOSE, wParam = %i, lParam = %i", wParam, lParam);
 
-				//zapisujemy kilka danych
+				szuKacz::window = 0;
+				DestroyWindow(hwnd);
+
+				return 0;
+			}
+			case WM_DESTROY:
+			{
+				IMLOG("[WindowProc]: iMsg = WM_DESTROY");
+
+				//zapisujemy pozycjê okna i kilka innych danych
 				{
+					WINDOWPLACEMENT placement;
+					placement.length = sizeof(WINDOWPLACEMENT);
+					GetWindowPlacement(hwnd, &placement);
+					SETINT(szuKacz::Config::WindowX, placement.rcNormalPosition.left);
+					SETINT(szuKacz::Config::WindowY, placement.rcNormalPosition.top);
+					SETINT(szuKacz::Config::WindowWidth, placement.rcNormalPosition.right - placement.rcNormalPosition.left);
+					SETINT(szuKacz::Config::WindowHeight, placement.rcNormalPosition.bottom - placement.rcNormalPosition.top);
+
 					SETINT(szuKacz::Config::ComboBox1, SendMessage(szuKacz::combobox1, CB_GETCURSEL, 0, 0));
 					SETINT(szuKacz::Config::ComboBox2, SendMessage(szuKacz::combobox2, CB_GETCURSEL, 0, 0));
 
@@ -48,43 +65,7 @@ namespace szuKacz
 					ListView_GetColumn(szuKacz::listview, 1, &lvc);
 					SETINT(szuKacz::Config::ListBoxColumn1, lvc.cx);
 				}
-
-				//niszczymy kontrolki i okienko
-				{
-					DestroyWindow(szuKacz::groupbox);
-					DestroyWindow(szuKacz::edit);
-					DestroyWindow(szuKacz::combobox1);
-					DestroyWindow(szuKacz::combobox2);
-					DestroyWindow(szuKacz::checkbox);
-					DestroyWindow(szuKacz::button);
-					DestroyWindow(szuKacz::listview);
-					DestroyWindow(szuKacz::toolbar);
-					DestroyWindow(hwnd);
-				}
-
-				//zerujemy uchwyt
-				{
-					szuKacz::window = 0;
-				}
-
 				return 0;
-				break;
-			}
-			case WM_DESTROY:
-			{
-				IMLOG("[WindowProc]: iMsg = WM_DESTROY, wParam = %i, lParam = %i", wParam, lParam);
-
-				//zapisujemy pozycjê okna
-				{
-					WINDOWPLACEMENT placement;
-					placement.length = sizeof(WINDOWPLACEMENT);
-					GetWindowPlacement(hwnd, &placement);
-					SETINT(szuKacz::Config::WindowX, placement.rcNormalPosition.left);
-					SETINT(szuKacz::Config::WindowY, placement.rcNormalPosition.top);
-					SETINT(szuKacz::Config::WindowWidth, placement.rcNormalPosition.right - placement.rcNormalPosition.left);
-					SETINT(szuKacz::Config::WindowHeight, placement.rcNormalPosition.bottom - placement.rcNormalPosition.top);
-				}
-				break;
 			}
 			case WM_GETMINMAXINFO:
 			{
@@ -184,10 +165,7 @@ namespace szuKacz
 							lvi.iItem = pos;
 							ListView_GetItem(szuKacz::listview, &lvi);
 
-							if(GetDefaultAction(((szuKacz::Result*)lvi.lParam)->cnt) != -1)
-							{
-								CallAction(IMIG_CNT, GetDefaultAction(((szuKacz::Result*)lvi.lParam)->cnt), ((szuKacz::Result*)lvi.lParam)->cnt);
-							}
+							szuKacz::CallDefaultAction(((szuKacz::Result*)lvi.lParam)->cnt);
 						}
 						break;
 					}
@@ -276,10 +254,7 @@ namespace szuKacz
 								lvi.iItem = pos;
 								ListView_GetItem(szuKacz::listview, &lvi);
 
-								if(GetDefaultAction(((szuKacz::Result*)lvi.lParam)->cnt) == IMIA_CNT_MSG)
-								{
-									CallAction(IMIG_CNT, IMIA_CNT_MSG, ((szuKacz::Result*)lvi.lParam)->cnt);
-								}
+								szuKacz::OpenMsgWindow(((szuKacz::Result*)lvi.lParam)->cnt);
 							}
 							break;
 						}
@@ -294,7 +269,7 @@ namespace szuKacz
 								lvi.iItem = pos;
 								ListView_GetItem(szuKacz::listview, &lvi); 
 
-								CallAction(IMIA_NFO_DETAILS_NET, IMIA_MSG_INFO, ((szuKacz::Result*)lvi.lParam)->cnt);
+								szuKacz::OpenInfoWindow(((szuKacz::Result*)lvi.lParam)->cnt);
 							}
 							break;
 						}
@@ -367,11 +342,6 @@ namespace szuKacz
 	void Window()
 	{
 		IMLOG("[Window]:");
-
-		if(szuKacz::window)
-		{
-			return;
-		}
 
 		//sprawdzamy, czy okienko nie poka¿e siê poza ekranem
 		if(GETINT(szuKacz::Config::WindowX) < GetSystemMetrics(SM_XVIRTUALSCREEN) || GETINT(szuKacz::Config::WindowX) > GetSystemMetrics(SM_CXVIRTUALSCREEN))

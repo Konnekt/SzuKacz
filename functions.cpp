@@ -358,10 +358,12 @@ namespace szuKacz
 						}
 					}
 				}
-				else if(lParam == 0 && HIWORD(wParam) == 0 && LOWORD(wParam) == 2)
+				break;
+			}
+			case WM_KEYUP:
+			{
+				if(wParam == VK_ESCAPE)
 				{
-					IMLOG("[KonnektMainWindowProc]: iMsg = WM_COMMAND, lParam = 0, HIWORD(wParam) = 0, LOWORD(wParam) = 2, wParam = %i, lParam = %i", wParam, lParam);
-
 					szuKacz::CallAction(szuKacz::Acts::Group, szuKacz::Acts::QuickSearch);
 				}
 				break;
@@ -369,48 +371,5 @@ namespace szuKacz
 		}
 
 		return ReturnedProcValue;
-	}
-
-	//funkcja obs³uguj¹ca toolbar szybkiego wyszukiwania
-	LRESULT CALLBACK QuickSearchToolbarProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
-	{
-		switch(iMsg)
-		{
-			case WM_KEYUP:
-			{
-				SendMessage(szuKacz::KonnektMainWindow, iMsg, wParam, lParam);
-				break;
-			}
-		}
-
-		return CallWindowProc(szuKacz::QuickSearchToolbarOldProc, hwnd, iMsg, wParam, lParam);
-	}
-
-	//funkcja obs³uguj¹ca edit szybkiego wyszukiwania
-	LRESULT CALLBACK QuickSearchEditProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
-	{
-		switch(iMsg)
-		{
-			case WM_KEYUP:
-			{
-				SendMessage(szuKacz::KonnektMainWindow, iMsg, wParam, lParam);
-				break;
-			}
-		}
-
-		return CallWindowProc(szuKacz::QuickSearchEditOldProc, hwnd, iMsg, wParam, lParam);
-	}
-
-	void QuickSearchToolbarRefresh(bool Move)
-	{
-		szuKacz::QuickSearchToolbarMoved = Move;
-
-		RECT rc1;
-		GetWindowRect(szuKacz::CNTListWindow, &rc1);
-		int ToolbarWidth = rc1.right - rc1.left - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_VSCROLL) ? GetSystemMetrics(SM_CXVSCROLL) : 0);
-		MoveWindow(szuKacz::QuickSearchToolbar, rc1.left, rc1.bottom - (Move ? 40 : 22) - ((GetWindowLong(szuKacz::CNTListWindow, GWL_STYLE) & WS_HSCROLL) ? GetSystemMetrics(SM_CXHSCROLL) : 0), ToolbarWidth, 22, 1);
-		int width = LOWORD(SendMessage(szuKacz::QuickSearchToolbar, TB_GETBUTTONSIZE, 0, 0));
-		SendMessage(szuKacz::QuickSearchToolbar, TB_SETINDENT, ToolbarWidth - (4 * width), 0);
-		MoveWindow(szuKacz::QuickSearchEdit, 0, 1, ToolbarWidth - (4 * width), 20, 1);
 	}
 }

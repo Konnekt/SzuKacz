@@ -24,7 +24,10 @@ namespace szuKacz
 		const unsigned Criterion = Net * 1000 + 114; //zaznaczone kryterium w szybkim wyszukiwaniu
 		const unsigned Method = Net * 1000 + 115; //zaznaczony sposób w szybkim wyszukiwaniu
 		const unsigned CaseSensitive = Net * 1000 + 116; //czy reagowaæ na wielkoœæ znaków w szybkim wyszukiwaniu
-		const unsigned DefaultAction = Net * 1000 + 117; //domyœlna akcja po klikniêciu na przycisk na toolbarze
+		const unsigned ToolbarAction = Net * 1000 + 117; //domyœlna akcja po klikniêciu na przycisk na toolbarze
+		const unsigned EnterAction = Net * 1000 + 118; //akcja po naciœniêciu entera w oknie szybkiego wyszukiwania
+		const unsigned CtrlEnterAction = Net * 1000 + 119; //akcja po naciœniêciu ctrl+enter w oknie szybkiego wyszukiwania
+		const unsigned QuickSearchEdit = Net * 1000 + 120; //zawartoœæ edita szybkiego wyszukiwania
 	}
 
 	//akcje
@@ -34,8 +37,12 @@ namespace szuKacz
 		const unsigned Search = Net * 1000 + 1;
 		const unsigned QuickSearch = Net * 1000 + 2;
 		const unsigned ClearMRU = Net * 1000 + 3;
-		const unsigned QuickSearchPrevious = Net * 1000 + 24;
-		const unsigned QuickSearchNext = Net * 1000 + 23;
+		const unsigned QuickSearchPrevious = Net * 1000 + 23;
+		const unsigned QuickSearchNext = Net * 1000 + 24;
+
+		const unsigned ButtonPositionContactMenu = Net * 1000 + 25;
+		const unsigned ButtonPositionPluginsMenu = Net * 1000 + 26;
+		const unsigned ButtonPositionMainToolbar = Net * 1000 + 27;
 
 		const unsigned CriterionMenu = Net * 1000 + 4;
 		const unsigned CriterionMenuStatusInfo = Net * 1000 + 5;

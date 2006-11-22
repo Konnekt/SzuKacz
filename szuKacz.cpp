@@ -3,91 +3,26 @@
 
 namespace szuKacz
 {
-	int IStart()
-	{
-		//rejestrujemy klasê okna
-		{
-			WNDCLASSEX window_class;
-			window_class.style = CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS;
-			window_class.lpfnWndProc = szuKacz::WindowProc;
-			window_class.cbClsExtra = 0;
-			window_class.cbWndExtra = 0;
-			window_class.hInstance = Ctrl->hInst();
-			window_class.hCursor = LoadCursor(0, IDC_ARROW);
-			window_class.lpszMenuName = 0;
-			window_class.lpszClassName = "szukacz_window_class";
-			window_class.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
-			window_class.hIcon = (HICON)Ctrl->ICMessage(IMI_ICONGET, szuKacz::Icons::szuKacz32, IML_32);
-			window_class.hIconSm = (HICON)Ctrl->ICMessage(IMI_ICONGET, szuKacz::Icons::szuKacz16, IML_16);
-			window_class.cbSize = sizeof(window_class);
-			RegisterClassEx(&window_class);
-		}
-
-		return 1;
-	}
-
-	int IEnd()
-	{
-		//usuwamy obiekt do obs³ugi MRU
-		{
-			delete szuKacz::MRUList;
-			szuKacz::MRUList = 0;
-		}
-
-		//usuwamy wskaŸnik na aktualny wynik
-		{
-			delete szuKacz::CurrentResult;
-			szuKacz::CurrentResult = 0;
-		}
-
-		//sprawdzamy, czy nie s¹ wy³¹czone stworzone okna i w razie czego niszczymy je
-		{
-			if(szuKacz::window)
-			{
-				SendMessage(szuKacz::window, WM_CLOSE, 0, 0);
-			}
-
-			if(szuKacz::QuickSearchToolbar)
-			{
-				DestroyWindow(szuKacz::QuickSearchToolbar);
-				szuKacz::QuickSearchToolbar = 0;
-			}
-
-			if(szuKacz::QuickSearchEdit)
-			{
-				DestroyWindow(szuKacz::QuickSearchEdit);
-				szuKacz::QuickSearchEdit = 0;
-			}			
-		}
-
-		//wyrejestrowujemy klasê okna
-		{
-			UnregisterClass("szukacz_window_class", Ctrl->hInst());
-		}
-
-		return 1;
-	}
-
 	int ISetCols()
 	{
-		//okno
-		{
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowX, DT_CT_INT, (GetSystemMetrics(SM_CXSCREEN) / 2) - ((180-(GetSystemMetrics(SM_CXFIXEDFRAME) * 2)) / 2), "szuKacz/Config/WindowX");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowY, DT_CT_INT, (GetSystemMetrics(SM_CYSCREEN) / 2) - ((120 - (GetSystemMetrics(SM_CYFIXEDFRAME) * 2) + GetSystemMetrics (SM_CYCAPTION)) / 2), "szuKacz/Config/WindowY");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowWidth, DT_CT_INT, 500 + GetSystemMetrics(SM_CXFIXEDFRAME) * 2, "szuKacz/Config/WindowWidth");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowHeight, DT_CT_INT, 300 + GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION), "szuKacz/Config/WindowHeight");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox1, DT_CT_INT, 1, "szuKacz/Config/ComboBox1");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox2, DT_CT_INT, 0, "szuKacz/Config/ComboBox2");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::CheckBox, DT_CT_INT, 0, "szuKacz/Config/CheckBox");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::ListBoxColumn0, DT_CT_INT, 100, "szuKacz/Config/ListBoxColumn0");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::ListBoxColumn1, DT_CT_INT, 200, "szuKacz/Config/ListBoxColumn1");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::ButtonPosition, DT_CT_INT, 0, "szuKacz/ButtonPosition");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::MRUSize, DT_CT_INT, 5, "szuKacz/MRUSize");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::Criterion, DT_CT_INT, 0, "szuKacz/Criterion");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::Method, DT_CT_INT, 0, "szuKacz/Method");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::CaseSensitive, DT_CT_INT, 0, "szuKacz/CaseSensitive");
-			Ctrl->SetColumn(DTCFG, szuKacz::Config::DefaultAction, DT_CT_INT, 0, "szuKacz/DefaultAction");
-		}
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowX, DT_CT_INT, (GetSystemMetrics(SM_CXSCREEN) / 2) - ((180-(GetSystemMetrics(SM_CXFIXEDFRAME) * 2)) / 2), "szuKacz/Config/WindowX");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowY, DT_CT_INT, (GetSystemMetrics(SM_CYSCREEN) / 2) - ((120 - (GetSystemMetrics(SM_CYFIXEDFRAME) * 2) + GetSystemMetrics (SM_CYCAPTION)) / 2), "szuKacz/Config/WindowY");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowWidth, DT_CT_INT, 500 + GetSystemMetrics(SM_CXFIXEDFRAME) * 2, "szuKacz/Config/WindowWidth");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowHeight, DT_CT_INT, 300 + GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION), "szuKacz/Config/WindowHeight");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox1, DT_CT_INT, 1, "szuKacz/Config/ComboBox1");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox2, DT_CT_INT, 0, "szuKacz/Config/ComboBox2");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::CheckBox, DT_CT_INT, 0, "szuKacz/Config/CheckBox");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ListBoxColumn0, DT_CT_INT, 100, "szuKacz/Config/ListBoxColumn0");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ListBoxColumn1, DT_CT_INT, 200, "szuKacz/Config/ListBoxColumn1");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ButtonPosition, DT_CT_INT, 0, "szuKacz/ButtonPosition");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::MRUSize, DT_CT_INT, 5, "szuKacz/MRUSize");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::Criterion, DT_CT_INT, 0, "szuKacz/Criterion");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::Method, DT_CT_INT, 0, "szuKacz/Method");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::CaseSensitive, DT_CT_INT, 0, "szuKacz/CaseSensitive");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ToolbarAction, DT_CT_INT, 0, "szuKacz/ToolbarAction");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::EnterAction, DT_CT_INT, 0, "szuKacz/EnterAction");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::CtrlEnterAction, DT_CT_INT, 1, "szuKacz/CtrlEnterAction");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::QuickSearchEdit, DT_CT_STR, "", "szuKacz/QuickSearchEdit");
 
 		return 1;
 	}
@@ -138,18 +73,25 @@ namespace szuKacz
 
 			if(Konnekt::ShowBits::checkLevel(Konnekt::ShowBits::levelIntermediate))
 			{
+				UIActionAdd(szuKacz::Config::Group, 0, ACTT_GROUP, "Akcje");
+				{
+					UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMMENT|ACTSC_INLINE, "Przycisku na toolbarze:", 0, 180);
+					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::ToolbarAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Okienko wyszukiwania" CFGICO "512200" "\nSzybkie wyszukiwanie" CFGICO "512200", szuKacz::Config::ToolbarAction, 200);
+					UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMMENT|ACTSC_INLINE, "Enter w szybkim wyszukiwaniu:", 0, 180);
+					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::EnterAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Otwórz okno rozmowy" CFGICO "1342177296" "\nOtwórz okno w³aœciwoœci" CFGICO "30" "\nZamknij szybkie wyszukiwanie" CFGICO "46", szuKacz::Config::EnterAction, 200);
+					UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMMENT|ACTSC_INLINE, "Ctrl+Enter w szybkim wyszukiwaniu:", 0, 180);
+					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::CtrlEnterAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Otwórz okno rozmowy" CFGICO "1342177296" "\nOtwórz okno w³aœciwoœci" CFGICO "30" "\nZamknij szybkie wyszukiwanie" CFGICO "46", szuKacz::Config::CtrlEnterAction, 200);
+				}
+				UIActionCfgAdd(szuKacz::Config::Group, 0, ACTT_GROUPEND);
 				UIActionAdd(szuKacz::Config::Group, 0, ACTT_GROUP, "Opcje");
 				{
 					UIActionAdd(szuKacz::Config::Group, 0, ACTT_SEP, "Po³o¿enie przycisku");
 					{
-						UIActionAdd(szuKacz::Config::Group, 0, ACTT_RADIO|ACTSC_NEEDRESTART|ACTSRADIO_BYPOS, "W menu kontaktów", szuKacz::Config::ButtonPosition);
-						UIActionAdd(szuKacz::Config::Group, 0, ACTT_RADIO|ACTSC_NEEDRESTART|ACTSRADIO_BYPOS, "W menu wtyczek", szuKacz::Config::ButtonPosition);
-						UIActionAdd(szuKacz::Config::Group, 0, ACTT_RADIO|ACTSC_NEEDRESTART|ACTSRADIO_BYPOS|ACTSRADIO_LAST, "Na g³ównym toolbarze", szuKacz::Config::ButtonPosition);
+						UIActionAdd(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionContactMenu, ACTT_RADIO|ACTSC_NEEDRESTART|ACTSRADIO_BYPOS|ACTR_STATUS, "W menu kontaktów", szuKacz::Config::ButtonPosition);
+						UIActionAdd(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionPluginsMenu, ACTT_RADIO|ACTSC_NEEDRESTART|ACTSRADIO_BYPOS|ACTR_STATUS, "W menu wtyczek", szuKacz::Config::ButtonPosition);
+						UIActionAdd(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionMainToolbar, ACTT_RADIO|ACTSC_NEEDRESTART|ACTSRADIO_BYPOS|ACTR_STATUS|ACTSRADIO_LAST, "Na g³ównym toolbarze", szuKacz::Config::ButtonPosition);
 					}
-					UIActionAdd(szuKacz::Config::Group, 0, ACTT_SEP, "Domyœlna akcja");
-					{
-						UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Okienko wyszukiwania" CFGICO "512200" "\nSzybkie wyszukiwanie" CFGICO "512200", szuKacz::Config::DefaultAction, 150);
-					}
+
 				}
 				UIActionCfgAdd(szuKacz::Config::Group, 0, ACTT_GROUPEND);
 			}
@@ -242,15 +184,18 @@ namespace szuKacz
 				SendMessage(szuKacz::QuickSearchToolbar, TB_SETMAXTEXTROWS, 0, 0);
 			}
 
-			szuKacz::QuickSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, 0, WS_CHILD, 0, 0, 0, 0, szuKacz::QuickSearchToolbar, 0, Ctrl->hInst(), 0);
+			szuKacz::QuickSearchEdit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, 0, WS_CHILD|ES_AUTOHSCROLL, 0, 0, 0, 0, szuKacz::QuickSearchToolbar, 0, Ctrl->hInst(), 0);
 
 			//ustawiamy czcionkê
 			{
 				HFONT font = CreateFont(-11, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Tahoma");
 				SendMessage(szuKacz::QuickSearchEdit, WM_SETFONT, (WPARAM)font, 0);
 			}
+		}
 
-			//subclassujemy g³ówne okno programu, …
+		//subclassujemy kilka okien…
+		{
+			//…g³ówne okno K, …
 			szuKacz::old_main_wnd_proc = (WNDPROC)SetWindowLongPtr(szuKacz::KonnektMainWindow, GWLP_WNDPROC, (LONG_PTR)szuKacz::KonnektMainWindowProc);
 
 			//…toolbar szybkiego wyszukiwania…
@@ -258,6 +203,75 @@ namespace szuKacz
 		
 			//…i edit szybkiego wyszukiwnia
 			szuKacz::QuickSearchEditOldProc = (WNDPROC)SetWindowLongPtr(szuKacz::QuickSearchEdit, GWLP_WNDPROC, (LONG_PTR)szuKacz::QuickSearchEditProc);
+		}
+
+		//okienko wyszukiwania
+		{
+			//rejestrujemy klasê okna
+			{
+				WNDCLASSEX window_class;
+				window_class.style = CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS;
+				window_class.lpfnWndProc = szuKacz::WindowProc;
+				window_class.cbClsExtra = 0;
+				window_class.cbWndExtra = 0;
+				window_class.hInstance = Ctrl->hInst();
+				window_class.hCursor = LoadCursor(0, IDC_ARROW);
+				window_class.lpszMenuName = 0;
+				window_class.lpszClassName = "szukacz_window_class";
+				window_class.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
+				window_class.hIcon = (HICON)Ctrl->ICMessage(IMI_ICONGET, szuKacz::Icons::szuKacz32, IML_32);
+				window_class.hIconSm = (HICON)Ctrl->ICMessage(IMI_ICONGET, szuKacz::Icons::szuKacz16, IML_16);
+				window_class.cbSize = sizeof(window_class);
+				RegisterClassEx(&window_class);
+			}
+		}
+
+		return 1;
+	}
+
+	int IStart()
+	{
+		return 1;
+	}
+
+	int IEnd()
+	{
+		//usuwamy obiekt do obs³ugi MRU
+		{
+			delete szuKacz::MRUList;
+			szuKacz::MRUList = 0;
+		}
+
+		//usuwamy wskaŸnik na aktualny wynik
+		{
+			delete szuKacz::CurrentResult;
+			szuKacz::CurrentResult = 0;
+		}
+
+		//niszczymy okna
+		{
+			if(szuKacz::window)
+			{
+				DestroyWindow(szuKacz::window);
+				szuKacz::window = 0;
+			}
+
+			if(szuKacz::QuickSearchToolbar)
+			{
+				DestroyWindow(szuKacz::QuickSearchToolbar);
+				szuKacz::QuickSearchToolbar = 0;
+			}
+
+			if(szuKacz::QuickSearchEdit)
+			{
+				DestroyWindow(szuKacz::QuickSearchEdit);
+				szuKacz::QuickSearchEdit = 0;
+			}
+		}
+
+		//wyrejestrowujemy klasê okna
+		{
+			UnregisterClass("szukacz_window_class", Ctrl->hInst());
 		}
 
 		return 1;
@@ -269,7 +283,7 @@ namespace szuKacz
 		{
 			case szuKacz::Acts::Group:
 			{
-				switch (GETINT(szuKacz::Config::DefaultAction))
+				switch (GETINT(szuKacz::Config::ToolbarAction))
 				{
 					case 0:
 					{
@@ -320,6 +334,8 @@ namespace szuKacz
 						ShowWindow(szuKacz::QuickSearchToolbar, SW_HIDE);
 
 						szuKacz::QuickSearchToolbarVisible = 0;
+
+						SetFocus(szuKacz::CNTListWindow);
 					}
 				}
 				break;
@@ -417,16 +433,30 @@ namespace szuKacz
 				if(anBase->code == ACTN_ACTION)
 				{
 					SendMessage(szuKacz::KonnektMainWindow, WM_COMMAND, MAKELPARAM(3, 0), (LPARAM)szuKacz::QuickSearchToolbar);
-					break;
 				}
+				break;
 			}
 			case szuKacz::Acts::QuickSearchNext:
 			{
 				if(anBase->code == ACTN_ACTION)
 				{
 					SendMessage(szuKacz::KonnektMainWindow, WM_COMMAND, MAKELPARAM(4, 0), (LPARAM)szuKacz::QuickSearchToolbar);
-					break;
 				}
+				break;
+			}
+			case szuKacz::Acts::ButtonPositionContactMenu:
+			case szuKacz::Acts::ButtonPositionPluginsMenu:
+			case szuKacz::Acts::ButtonPositionMainToolbar:
+			{
+				if((*UIActionCfgGetValue(sUIAction(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionPluginsMenu), 0, 0) == '1' && GETINT(188) != 15) || (*UIActionCfgGetValue(sUIAction(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionMainToolbar), 0, 0) == '2'))
+				{
+					UIActionSetStatus(sUIAction(szuKacz::Config::Group, szuKacz::Config::ToolbarAction),  0, ACTS_DISABLED);
+				}
+				else
+				{
+					UIActionSetStatus(sUIAction(szuKacz::Config::Group, szuKacz::Config::ToolbarAction),  -1, ACTS_DISABLED);
+				}
+				break;
 			}
 		}
 		return 0;

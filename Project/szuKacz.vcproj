@@ -204,6 +204,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\QuickSearch.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -255,6 +259,10 @@
 			</File>
 			<File
 				RelativePath="..\MRU.h"
+				>
+			</File>
+			<File
+				RelativePath="..\QuickSearch.h"
 				>
 			</File>
 			<File

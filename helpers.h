@@ -22,4 +22,13 @@ namespace szuKacz
 
 	//funkcja sprawdzaj¹ca, czy plugin o danym necie istnieje
 	int PluginExists(int net, int type = IMT_ALL);
+
+	//funkcja otwieraj¹ca okno rozmowy dla danego kontaktu
+	void OpenMsgWindow(int CNT);
+
+	//funkcja otwieraj¹ca okno w³aœciwoœci dla danego kontaktu
+	void OpenInfoWindow(int CNT);
+
+	//funkcja odpalaj¹ca domyœln¹ akcjê
+	void CallDefaultAction(int CNT);
 }
