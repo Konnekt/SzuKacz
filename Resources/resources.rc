@@ -41,8 +41,8 @@ IDI_ICON6               ICON                    "Icons\\criterion.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,9,3,1
- PRODUCTVERSION 0,9,3,1
+ FILEVERSION 0,9,3,2
+ PRODUCTVERSION 0,9,3,2
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -59,12 +59,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Skolima, Micha³ ""Dulek"" Dulko"
             VALUE "FileDescription", "Przeszukiwanie listy kontaktów"
-            VALUE "FileVersion", "0.9.3.1"
+            VALUE "FileVersion", "0.9.3.2"
             VALUE "InternalName", "szuKacz"
             VALUE "LegalCopyright", "Copyright (C) 2006"
             VALUE "OriginalFilename", "szuKacz.dll"
             VALUE "ProductName", "szuKacz"
-            VALUE "ProductVersion", "0.9.3.1"
+            VALUE "ProductVersion", "0.9.3.2"
         END
     END
     BLOCK "VarFileInfo"
