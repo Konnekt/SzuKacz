@@ -258,7 +258,7 @@ namespace szuKacz
 				}
 				else
 				{
-					szuKacz::CallAction(szuKacz::Acts::Group, szuKacz::Acts::QuickSearch);
+					szuKacz::QuickSearchToolbarHide(0);
 				}
 				break;
 			}
@@ -364,7 +364,7 @@ namespace szuKacz
 			{
 				if(wParam == VK_ESCAPE)
 				{
-					szuKacz::CallAction(szuKacz::Acts::Group, szuKacz::Acts::QuickSearch);
+					szuKacz::QuickSearchToolbarHide(1);
 				}
 				break;
 			}

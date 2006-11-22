@@ -10,4 +10,7 @@ namespace szuKacz
 
 	//funkcja odœwie¿aj¹ca toolbar szybkiego wyszukiwania
 	void QuickSearchToolbarRefresh(bool Move = 0);
+
+	//funkcja chowa toolbar szybkiego wyszukiwania
+	void QuickSearchToolbarHide(bool FocusRooster = 1);
 }

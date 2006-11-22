@@ -18,7 +18,7 @@ namespace szuKacz
 					{
 						switch(GETINT(szuKacz::Config::EnterAction))
 						{
-							case 0:
+							case 1:
 							{
 								int pos = SendMessage(szuKacz::CNTListWindow, LVM_GETNEXTITEM, -1, LVNI_FOCUSED);
 								if(pos != -1)
@@ -30,9 +30,10 @@ namespace szuKacz
 
 									szuKacz::OpenMsgWindow(((sUICnt*)lvi.lParam)->ID);
 								}
+								szuKacz::QuickSearchToolbarHide(0);
 								break;
 							}
-							case 1:
+							case 2:
 							{
 								int pos = SendMessage(szuKacz::CNTListWindow, LVM_GETNEXTITEM, -1, LVNI_FOCUSED);
 								if(pos != -1)
@@ -44,11 +45,12 @@ namespace szuKacz
 
 									szuKacz::OpenInfoWindow(((sUICnt*)lvi.lParam)->ID);
 								}
+								szuKacz::QuickSearchToolbarHide(0);
 								break;
 							}
-							case 2:
+							case 3:
 							{
-								szuKacz::CallAction(szuKacz::Acts::Group, szuKacz::Acts::QuickSearch);
+								szuKacz::QuickSearchToolbarHide();
 								break;
 							}
 						}
@@ -57,7 +59,7 @@ namespace szuKacz
 					{
 						switch(GETINT(szuKacz::Config::CtrlEnterAction))
 						{
-							case 0:
+							case 1:
 							{
 								int pos = SendMessage(szuKacz::CNTListWindow, LVM_GETNEXTITEM, -1, LVNI_FOCUSED);
 								if(pos != -1)
@@ -69,9 +71,10 @@ namespace szuKacz
 
 									szuKacz::OpenMsgWindow(((sUICnt*)lvi.lParam)->ID);
 								}
+								szuKacz::QuickSearchToolbarHide(0);
 								break;
 							}
-							case 1:
+							case 2:
 							{
 								int pos = SendMessage(szuKacz::CNTListWindow, LVM_GETNEXTITEM, -1, LVNI_FOCUSED);
 								if(pos != -1)
@@ -83,11 +86,12 @@ namespace szuKacz
 
 									szuKacz::OpenInfoWindow(((sUICnt*)lvi.lParam)->ID);
 								}
+								szuKacz::QuickSearchToolbarHide(0);
 								break;
 							}
-							case 2:
+							case 3:
 							{
-								szuKacz::CallAction(szuKacz::Acts::Group, szuKacz::Acts::QuickSearch);
+								szuKacz::QuickSearchToolbarHide();
 								break;
 							}
 						}
@@ -172,5 +176,20 @@ namespace szuKacz
 		int width = LOWORD(SendMessage(szuKacz::QuickSearchToolbar, TB_GETBUTTONSIZE, 0, 0));
 		SendMessage(szuKacz::QuickSearchToolbar, TB_SETINDENT, ToolbarWidth - (4 * width), 0);
 		MoveWindow(szuKacz::QuickSearchEdit, 0, 1, ToolbarWidth - (4 * width), 20, 1);
+	}
+
+	void QuickSearchToolbarHide(bool FocusRooster)
+	{
+		szuKacz::QuickSearchToolbarRefresh(0);
+
+		ShowWindow(szuKacz::QuickSearchEdit, SW_HIDE);
+		ShowWindow(szuKacz::QuickSearchToolbar, SW_HIDE);
+
+		szuKacz::QuickSearchToolbarVisible = 0;
+
+		if(FocusRooster)
+		{
+			SetFocus(szuKacz::CNTListWindow);
+		}
 	}
 }

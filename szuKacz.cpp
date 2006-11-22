@@ -78,9 +78,9 @@ namespace szuKacz
 					UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMMENT|ACTSC_INLINE, "Przycisku na toolbarze:", 0, 180);
 					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::ToolbarAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Okienko wyszukiwania" CFGICO "512200" "\nSzybkie wyszukiwanie" CFGICO "512200", szuKacz::Config::ToolbarAction, 200);
 					UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMMENT|ACTSC_INLINE, "Enter w szybkim wyszukiwaniu:", 0, 180);
-					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::EnterAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Otwórz okno rozmowy" CFGICO "1342177296" "\nOtwórz okno w³aœciwoœci" CFGICO "30" "\nZamknij szybkie wyszukiwanie" CFGICO "46", szuKacz::Config::EnterAction, 200);
+					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::EnterAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Brak akcji" "\nOtwórz okno rozmowy" CFGICO "1342177296" "\nOtwórz okno w³aœciwoœci" CFGICO "30" "\nZamknij szybkie wyszukiwanie" CFGICO "46", szuKacz::Config::EnterAction, 200);
 					UIActionAdd(szuKacz::Config::Group, 0, ACTT_COMMENT|ACTSC_INLINE, "Ctrl+Enter w szybkim wyszukiwaniu:", 0, 180);
-					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::CtrlEnterAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Otwórz okno rozmowy" CFGICO "1342177296" "\nOtwórz okno w³aœciwoœci" CFGICO "30" "\nZamknij szybkie wyszukiwanie" CFGICO "46", szuKacz::Config::CtrlEnterAction, 200);
+					UIActionAdd(szuKacz::Config::Group, szuKacz::Config::CtrlEnterAction, ACTT_COMBO|ACTSCOMBO_LIST|ACTSCOMBO_BYPOS, "Brak akcji" "\nOtwórz okno rozmowy" CFGICO "1342177296" "\nOtwórz okno w³aœciwoœci" CFGICO "30" "\nZamknij szybkie wyszukiwanie" CFGICO "46", szuKacz::Config::CtrlEnterAction, 200);
 				}
 				UIActionCfgAdd(szuKacz::Config::Group, 0, ACTT_GROUPEND);
 				UIActionAdd(szuKacz::Config::Group, 0, ACTT_GROUP, "Opcje");
@@ -328,14 +328,7 @@ namespace szuKacz
 					}
 					else
 					{
-						szuKacz::QuickSearchToolbarRefresh(0);
-
-						ShowWindow(szuKacz::QuickSearchEdit, SW_HIDE);
-						ShowWindow(szuKacz::QuickSearchToolbar, SW_HIDE);
-
-						szuKacz::QuickSearchToolbarVisible = 0;
-
-						SetFocus(szuKacz::CNTListWindow);
+						szuKacz::QuickSearchToolbarHide();
 					}
 				}
 				break;
