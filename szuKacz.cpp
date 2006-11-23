@@ -9,14 +9,14 @@ namespace szuKacz
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowY, DT_CT_INT, (GetSystemMetrics(SM_CYSCREEN) / 2) - ((120 - (GetSystemMetrics(SM_CYFIXEDFRAME) * 2) + GetSystemMetrics (SM_CYCAPTION)) / 2), "szuKacz/Config/WindowY");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowWidth, DT_CT_INT, 500 + GetSystemMetrics(SM_CXFIXEDFRAME) * 2, "szuKacz/Config/WindowWidth");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::WindowHeight, DT_CT_INT, 300 + GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION), "szuKacz/Config/WindowHeight");
-		Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox1, DT_CT_INT, 1, "szuKacz/Config/ComboBox1");
-		Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox2, DT_CT_INT, 0, "szuKacz/Config/ComboBox2");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox1, DT_CT_INT, 0, "szuKacz/Config/ComboBox1");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::ComboBox2, DT_CT_INT, 2, "szuKacz/Config/ComboBox2");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::CheckBox, DT_CT_INT, 0, "szuKacz/Config/CheckBox");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::ListBoxColumn0, DT_CT_INT, 100, "szuKacz/Config/ListBoxColumn0");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::ListBoxColumn1, DT_CT_INT, 200, "szuKacz/Config/ListBoxColumn1");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::ButtonPosition, DT_CT_INT, 0, "szuKacz/ButtonPosition");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::MRUSize, DT_CT_INT, 5, "szuKacz/MRUSize");
-		Ctrl->SetColumn(DTCFG, szuKacz::Config::Criterion, DT_CT_INT, 0, "szuKacz/Criterion");
+		Ctrl->SetColumn(DTCFG, szuKacz::Config::Criterion, DT_CT_INT, 2, "szuKacz/Criterion");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::Method, DT_CT_INT, 0, "szuKacz/Method");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::CaseSensitive, DT_CT_INT, 0, "szuKacz/CaseSensitive");
 		Ctrl->SetColumn(DTCFG, szuKacz::Config::ToolbarAction, DT_CT_INT, 0, "szuKacz/ToolbarAction");
@@ -443,11 +443,11 @@ namespace szuKacz
 			{
 				if((*UIActionCfgGetValue(sUIAction(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionPluginsMenu), 0, 0) == '1' && GETINT(188) != 15) || (*UIActionCfgGetValue(sUIAction(szuKacz::Config::Group, szuKacz::Acts::ButtonPositionMainToolbar), 0, 0) == '2'))
 				{
-					UIActionSetStatus(sUIAction(szuKacz::Config::Group, szuKacz::Config::ToolbarAction),  0, ACTS_DISABLED);
+					UIActionSetStatus(sUIAction(szuKacz::Config::Group, szuKacz::Config::ToolbarAction), 0, ACTS_DISABLED);
 				}
 				else
 				{
-					UIActionSetStatus(sUIAction(szuKacz::Config::Group, szuKacz::Config::ToolbarAction),  -1, ACTS_DISABLED);
+					UIActionSetStatus(sUIAction(szuKacz::Config::Group, szuKacz::Config::ToolbarAction), -1, ACTS_DISABLED);
 				}
 				break;
 			}
