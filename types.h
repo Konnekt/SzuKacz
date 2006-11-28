@@ -1,27 +1,28 @@
 #pragma once
 
-namespace szuKacz
+namespace SzuKacz
 {
 	struct SortStruct
 	{
+		HWND listView;
 		int col;
 		bool asc;
 	};
 
 	struct Result
 	{
-		Result(int Row, int FieldID)
+		Result(int row, int fieldId)
 		{
-			this->cnt = GETCNTID(Row);
-			this->display = GETCNTC(Row, CNT_DISPLAY);
-			this->found_value = GETCNTC(Row, FieldID);
-			this->net = GETCNTI(Row, CNT_NET);
+			this->cnt = GETCNTID(row);
+			this->display = GETCNTC(row, CNT_DISPLAY);
+			this->foundValue = GETCNTC(row, fieldId);
+			this->net = GETCNTI(row, CNT_NET);
 		}
 
 		int cnt;
 		int row;
 		std::string display;
-		std::string found_value;
+		std::string foundValue;
 		int net;
 	};
 

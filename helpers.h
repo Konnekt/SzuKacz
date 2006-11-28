@@ -1,34 +1,31 @@
 #pragma once
 
-namespace szuKacz
+namespace SzuKacz
 {
 	//funkcja do sortowania itemów ListViewa
-	int CALLBACK Sort(LPARAM idItem1, LPARAM idItem2, LPARAM lParamSort);
+	int CALLBACK sort(LPARAM idItem1, LPARAM idItem2, LPARAM lParamSort);
 
 	//funkcja wywo³uj¹ca akcjê
-	void CallAction(sUIAction act);
+	void callAction(sUIAction act);
 
 	//funkcja wywo³uj¹ca akcjê
-	void CallAction(int parent, int id, int cnt = -2);
+	void callAction(int parent, int id, int cnt = -2);
 
 	//funkcja pobieraj¹ca domyœln¹ akcje (by Aule)
-	int GetDefaultAction(int cnt);
+	int getDefaultAction(int cnt);
 
 	//funkcja sprawdzaj¹ca, czy punt znajduje siê w kwadracie
-	bool IsInside(POINT pt, RECT r);
-
-	//funkcja zaznaczaj¹ca na liœcie kontakt o podanym ID
-	void SelectCNT(HWND ListView, int CNT);
+	bool isInside(POINT pt, RECT r);
 
 	//funkcja sprawdzaj¹ca, czy plugin o danym necie istnieje
-	int PluginExists(int net, int type = IMT_ALL);
+	int pluginExists(int net, int type = IMT_ALL);
 
 	//funkcja otwieraj¹ca okno rozmowy dla danego kontaktu
-	void OpenMsgWindow(int CNT);
+	void openMsgWindow(int cnt);
 
 	//funkcja otwieraj¹ca okno w³aœciwoœci dla danego kontaktu
-	void OpenInfoWindow(int CNT);
+	void openInfoWindow(int cnt);
 
 	//funkcja odpalaj¹ca domyœln¹ akcjê
-	void CallDefaultAction(int CNT);
+	void callDefaultAction(int cnt);
 }

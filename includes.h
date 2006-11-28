@@ -2,10 +2,8 @@
 
 //wewnêtrzne
 #include "MRU.h"
-#include "types.h"
-#include "szuKacz.h"
-#include "variables.h"
-#include "window.h"
-#include "functions.h"
-#include "helpers.h"
-#include "QuickSearch.h"
+#include "Types.h"
+#include "Controller.h"
+#include "SzuKacz.h"
+#include "Functions.h"
+#include "Helpers.h"
