@@ -13,13 +13,13 @@ namespace SzuKacz
 		{
 			ListView_GetItemText(psort->listView, idItem1, psort->col, item1, 256);
 			ListView_GetItemText(psort->listView, idItem2, psort->col, item2, 256);
-			return strcoll(item1, item2);
+			return _stricoll(item1, item2);
 		}
 		else
 		{
 			ListView_GetItemText(psort->listView, idItem1, psort->col, item1, 256);
 			ListView_GetItemText(psort->listView, idItem2, psort->col, item2, 256);
-			return -strcoll(item1, item2);
+			return -_stricoll(item1, item2);
 		}
 	}
 

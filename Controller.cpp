@@ -40,13 +40,16 @@ namespace SzuKacz
 
 	void Controller::onPrepare()
 	{
+		//ustawiamy locale (dla wszelkich sortowañ - u¿ywamy _stricoll)
+		setlocale(LC_ALL, "Polish");
+
 		//przygotowujemy klasê do obs³ugi MRU
 		this->mruList = new MRU("SzuKacz", SzuKacz::CFG::mruSize, 1);
 
 		//rejestrujemy ikonki
 		{
-			IconRegister(IML_16, SzuKacz::ICO::szuKacz16, SzuKacz::RES::szuKacz16);
-			IconRegister(IML_32, SzuKacz::ICO::szuKacz32, SzuKacz::RES::szuKacz32);
+			IconRegister(IML_16, SzuKacz::ICO::SzuKacz16, SzuKacz::RES::SzuKacz16);
+			IconRegister(IML_32, SzuKacz::ICO::SzuKacz32, SzuKacz::RES::SzuKacz32);
 			IconRegister(IML_16, SzuKacz::ICO::previous, SzuKacz::RES::previous);
 			IconRegister(IML_16, SzuKacz::ICO::next, SzuKacz::RES::next);
 			IconRegister(IML_16, SzuKacz::ICO::criterion, SzuKacz::RES::criterion);
@@ -58,27 +61,27 @@ namespace SzuKacz
 		{
 			case 0:
 			{
-				UIGroupAdd(IMIG_MAIN_CNT, SzuKacz::ACT::groupButton, 0, "Szukaj na liœcie", SzuKacz::ICO::szuKacz16);
+				UIGroupAdd(IMIG_MAIN_CNT, SzuKacz::ACT::groupButton, 0, "Szukaj na liœcie", SzuKacz::ICO::SzuKacz16);
 				break;
 			}
 			case 1:
 			{
-				UIGroupAdd(Ctrl->IMessage(IMI_GETPLUGINSGROUP, 0, 0), SzuKacz::ACT::groupButton, 0, "Szukaj na liœcie", SzuKacz::ICO::szuKacz16);
+				UIGroupAdd(Ctrl->IMessage(IMI_GETPLUGINSGROUP, 0, 0), SzuKacz::ACT::groupButton, 0, "Szukaj na liœcie", SzuKacz::ICO::SzuKacz16);
 				break;
 			}
 			case 2:
 			{
-				UIGroupAdd(IMIG_MAINTB, SzuKacz::ACT::groupButton, 0, "Szukaj na liœcie", SzuKacz::ICO::szuKacz16);
+				UIGroupAdd(IMIG_MAINTB, SzuKacz::ACT::groupButton, 0, "Szukaj na liœcie", SzuKacz::ICO::SzuKacz16);
 				break;
 			}
 		}
 
-		UIActionAdd(SzuKacz::ACT::groupButton, SzuKacz::ACT::search, 0, "Okienko wyszukiwania", SzuKacz::ICO::szuKacz16);
-		UIActionAdd(SzuKacz::ACT::groupButton, SzuKacz::ACT::quickSearch, 0, "Szybkie wyszukiwanie", SzuKacz::ICO::szuKacz16);
+		UIActionAdd(SzuKacz::ACT::groupButton, SzuKacz::ACT::search, 0, "Okienko wyszukiwania", SzuKacz::ICO::SzuKacz16);
+		UIActionAdd(SzuKacz::ACT::groupButton, SzuKacz::ACT::quickSearch, 0, "Szybkie wyszukiwanie", SzuKacz::ICO::SzuKacz16);
 
-		UIGroupAdd(IMIG_CFG_PLUGS, SzuKacz::CFG::group, 0, "SzuKacz", SzuKacz::ICO::szuKacz16);
+		UIGroupAdd(IMIG_CFG_PLUGS, SzuKacz::CFG::group, 0, "SzuKacz", SzuKacz::ICO::SzuKacz16);
 		{
-			UIActionCfgAddPluginInfoBox2(SzuKacz::CFG::group, "Wtyczka pozwala na szybkie przeszukiwanie listy kontaktów wed³ug ró¿nych kryteriów.", "<span class='note'>Skompilowano: <b>"__DATE__"</b> [<b>"__TIME__"</b>]</span><br/><br/>Copyright © 2004-2006 <b>Skolima</b><br/>Copyright © 2006 <b>Micha³ \"Dulek\" Dulko</b>", (char*)SzuKacz::RES::szuKacz32);
+			UIActionCfgAddPluginInfoBox2(SzuKacz::CFG::group, "Wtyczka pozwala na szybkie przeszukiwanie listy kontaktów wed³ug ró¿nych kryteriów.", "<span class='note'>Skompilowano: <b>"__DATE__"</b> [<b>"__TIME__"</b>]</span><br/><br/>Copyright © 2004-2006 <b>Skolima</b><br/>Copyright © 2006 <b>Micha³ \"Dulek\" Dulko</b>", (char*)SzuKacz::RES::SzuKacz32);
 
 			if(Konnekt::ShowBits::checkLevel(Konnekt::ShowBits::levelIntermediate))
 			{
@@ -109,7 +112,7 @@ namespace SzuKacz
 				UIActionAdd(SzuKacz::CFG::group, 0, ACTT_GROUP, "Historia wyszukiwanych hase³");
 				{
 					UIActionAdd(SzuKacz::CFG::group, 0, ACTT_COMMENT, "Iloœæ pozycji w historii:");
-					UIActionAdd(SzuKacz::CFG::group, 0, ACTT_SLIDER, "Ma³o\nDu¿o" AP_MINIMUM "1" AP_MAXIMUM "100", SzuKacz::CFG::mruSize);
+					UIActionAdd(SzuKacz::CFG::group, 0, ACTT_SLIDER, "Ma³o\nDu¿o" AP_MINIMUM "0" AP_MAXIMUM "100", SzuKacz::CFG::mruSize);
 					UIActionAdd(SzuKacz::CFG::group, 0, ACTT_SEPARATOR);
 					UIActionAdd(SzuKacz::CFG::group, SzuKacz::ACT::clearMRU, ACTT_BUTTON, "Wyczyœæ" AP_ICO "50");
 				}
@@ -228,8 +231,8 @@ namespace SzuKacz
 				window_class.lpszMenuName = 0;
 				window_class.lpszClassName = "SzuKaczSearchWindow";
 				window_class.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
-				window_class.hIcon = (HICON)Ctrl->ICMessage(IMI_ICONGET, SzuKacz::ICO::szuKacz32, IML_32);
-				window_class.hIconSm = (HICON)Ctrl->ICMessage(IMI_ICONGET, SzuKacz::ICO::szuKacz16, IML_16);
+				window_class.hIcon = (HICON)Ctrl->ICMessage(IMI_ICONGET, SzuKacz::ICO::SzuKacz32, IML_32);
+				window_class.hIconSm = (HICON)Ctrl->ICMessage(IMI_ICONGET, SzuKacz::ICO::SzuKacz16, IML_16);
 				window_class.cbSize = sizeof(window_class);
 				RegisterClassEx(&window_class);
 			}
@@ -450,11 +453,11 @@ namespace SzuKacz
 	}
 
 	//funkcja przeszukuj¹ca listê kontaktów i zwracaj¹ca tablicê z wynikami
-	std::list<Result> Controller::findContact(int field, std::string &toMatch, int relationType, bool caseSensitive, bool fromList, bool save)
+	SzuKacz::tResults Controller::findContact(int field, std::string &toMatch, int relationType, bool caseSensitive, bool fromList, bool save)
 	{
 		IMLOG("[findContact]: field = %i, toMatch = %s, relationType = %i, caseSensitive = %i, fromList = %i, save = %i", field, toMatch.c_str(), relationType, caseSensitive, fromList, save);
 		
-		std::list<Result> results;
+		SzuKacz::tResults results;
 
 		//zapisujemy do MRU
 		if(save)
@@ -658,7 +661,7 @@ namespace SzuKacz
 		}
 
 		//tworzymy okno
-		this->searchWindow = CreateWindowEx(0, "szukacz_window_class", "Szukaj na liœcie", WS_VISIBLE|WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX|WS_MAXIMIZEBOX|WS_THICKFRAME, GETINT(SzuKacz::CFG::windowPosX), GETINT(SzuKacz::CFG::windowPosY), GETINT(SzuKacz::CFG::windowWidth), GETINT(SzuKacz::CFG::windowHeight), 0, 0, Ctrl->hInst(), 0);
+		this->searchWindow = CreateWindowEx(0, "SzuKaczSearchWindow", "Szukaj na liœcie", WS_VISIBLE|WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX|WS_MAXIMIZEBOX|WS_THICKFRAME, GETINT(SzuKacz::CFG::windowPosX), GETINT(SzuKacz::CFG::windowPosY), GETINT(SzuKacz::CFG::windowWidth), GETINT(SzuKacz::CFG::windowHeight), 0, 0, Ctrl->hInst(), 0);
 	}
 
 	//funkcja odœwie¿aj¹ca toolbar szybkiego wyszukiwania

@@ -8,8 +8,8 @@ namespace SzuKacz
 	{
 		static HWND groupBox; //uchwyt GroupBoxa
 		static HWND findWhatComboBox; //uchwyt Edita
-		static HWND methodComboBox; //uchwyt ComboBoxa ze sposobem
-		static HWND criterionComboBox; //uchwyt ComboBoxa z kryterium
+		static HWND criterionComboBox; //uchwyt ComboBoxa ze sposobem
+		static HWND methodComboBox; //uchwyt ComboBoxa z kryterium
 		static HWND caseSensitiveCheckBox; //uchwyt CheckBoxa
 		static HWND searchButton; //uchwyt Buttona
 		static HWND resultsListView; //uchwyt ListViewa
@@ -28,6 +28,7 @@ namespace SzuKacz
 				{
 					//GroupBox
 					{
+						//tworzymy kontrolkê
 						groupBox = CreateWindowEx(0, WC_BUTTON, "Kryteria", WS_VISIBLE|WS_CHILD|BS_GROUPBOX, 0, 0, 0, 0, hWnd, 0, Ctrl->hInst(), 0);
 						
 						//ustawiamy czcionkê
@@ -40,6 +41,7 @@ namespace SzuKacz
 
 					//ComboBox z tekstem do wyszukania
 					{
+						//tworzymy kontrolkê
 						findWhatComboBox = CreateWindowEx(WS_EX_RIGHTSCROLLBAR, WC_COMBOBOXEX, 0, WS_CHILD|WS_VISIBLE|WS_TABSTOP|CBS_DROPDOWN, 0, 0, 0, 100, hWnd, 0, Ctrl->hInst(), 0);
 
 						//ustawiamy czcionkê
@@ -68,45 +70,7 @@ namespace SzuKacz
 
 					//ComboBox ze sposobem
 					{
-						methodComboBox = CreateWindowEx(WS_EX_RIGHTSCROLLBAR, WC_COMBOBOXEX, 0, WS_VISIBLE|WS_CHILD|WS_TABSTOP|CBS_DROPDOWNLIST, 0, 0, 0, 100, hWnd, 0, Ctrl->hInst(), 0);
-
-						//ustawiamy czcionkê
-						{
-							HFONT font;
-							font = CreateFont(-11, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Tahoma");
-							SendMessage(methodComboBox, WM_SETFONT, (WPARAM)font, 0);
-						}
-
-						//dodajemy elementy
-						{
-							COMBOBOXEXITEM cbei;
-							cbei.mask = CBEIF_TEXT;
-							cbei.iItem = -1;
-							cbei.pszText = "Opis";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "UID";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Wyœwietl jako";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Komórka";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "IP";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Miejscowoœæ";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Imiê";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Nazwisko";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Ksywka";
-							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-
-							SendMessage(methodComboBox, CB_SETCURSEL, GETINT(SzuKacz::CFG::selectedMethod), 0);
-						}
-					}
-
-					//ComboBox z kryterium
-					{
+						//tworzymy kontrolkê
 						criterionComboBox = CreateWindowEx(WS_EX_RIGHTSCROLLBAR, WC_COMBOBOXEX, 0, WS_VISIBLE|WS_CHILD|WS_TABSTOP|CBS_DROPDOWNLIST, 0, 0, 0, 100, hWnd, 0, Ctrl->hInst(), 0);
 
 						//ustawiamy czcionkê
@@ -121,27 +85,68 @@ namespace SzuKacz
 							COMBOBOXEXITEM cbei;
 							cbei.mask = CBEIF_TEXT;
 							cbei.iItem = -1;
-							cbei.pszText = "Zawiera";
+							cbei.pszText = "Opis";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Równe";
+							cbei.pszText = "UID";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Ró¿ne od";
+							cbei.pszText = "Wyœwietl jako";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Zaczyna siê od";
+							cbei.pszText = "Komórka";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Koñczy siê na";
+							cbei.pszText = "IP";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Nie zawiera";
+							cbei.pszText = "Miejscowoœæ";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
-							cbei.pszText = "Wyra¿enie regularne";
+							cbei.pszText = "Imiê";
+							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Nazwisko";
+							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Ksywka";
 							SendMessage(criterionComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
 
-							SendMessage(criterionComboBox, CB_SETCURSEL, GETINT(SzuKacz::CFG::selectedCriterion), 0);
+							SendMessage(criterionComboBox, CB_SETCURSEL, GETINT(SzuKacz::CFG::selectedMethod), 0);
+						}
+					}
+
+					//ComboBox z kryterium
+					{
+						//tworzymy kontrolkê
+						methodComboBox = CreateWindowEx(WS_EX_RIGHTSCROLLBAR, WC_COMBOBOXEX, 0, WS_VISIBLE|WS_CHILD|WS_TABSTOP|CBS_DROPDOWNLIST, 0, 0, 0, 100, hWnd, 0, Ctrl->hInst(), 0);
+
+						//ustawiamy czcionkê
+						{
+							HFONT font;
+							font = CreateFont(-11, 0, 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Tahoma");
+							SendMessage(methodComboBox, WM_SETFONT, (WPARAM)font, 0);
+						}
+
+						//dodajemy elementy
+						{
+							COMBOBOXEXITEM cbei;
+							cbei.mask = CBEIF_TEXT;
+							cbei.iItem = -1;
+							cbei.pszText = "Zawiera";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Równe";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Ró¿ne od";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Zaczyna siê od";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Koñczy siê na";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Nie zawiera";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+							cbei.pszText = "Wyra¿enie regularne";
+							SendMessage(methodComboBox, CBEM_INSERTITEM, 0, (LPARAM)&cbei);
+
+							SendMessage(methodComboBox, CB_SETCURSEL, GETINT(SzuKacz::CFG::selectedCriterion), 0);
 						}
 					}
 
 					//CheckBox czy uwzglêdniaæ wielkoœæ znaków
 					{
+						//tworzymy kontrolkê
 						caseSensitiveCheckBox = CreateWindowEx(0, WC_BUTTON, "Uwzglêdniaj wielkoœæ liter", WS_VISIBLE|WS_CHILD|WS_TABSTOP|BS_AUTOCHECKBOX, 0, 0, 0, 0, hWnd, 0, Ctrl->hInst(), 0);
 
 						if(GETINT(SzuKacz::CFG::selectedCaseSensitive))
@@ -157,6 +162,7 @@ namespace SzuKacz
 
 					//Button "Szukaj"
 					{
+						//tworzymy kontrolkê
 						searchButton = CreateWindowEx(0, WC_BUTTON, "Szukaj", WS_VISIBLE|WS_CHILD|WS_TABSTOP, 0, 0, 0, 0, hWnd, 0, Ctrl->hInst(), 0);
 
 						//ustawiamy czcionkê
@@ -254,8 +260,8 @@ namespace SzuKacz
 					SETINT(SzuKacz::CFG::windowWidth, placement.rcNormalPosition.right - placement.rcNormalPosition.left);
 					SETINT(SzuKacz::CFG::windowHeight, placement.rcNormalPosition.bottom - placement.rcNormalPosition.top);
 
-					SETINT(SzuKacz::CFG::selectedMethod, SendMessage(methodComboBox, CB_GETCURSEL, 0, 0));
-					SETINT(SzuKacz::CFG::selectedCriterion, SendMessage(criterionComboBox, CB_GETCURSEL, 0, 0));
+					SETINT(SzuKacz::CFG::selectedMethod, SendMessage(criterionComboBox, CB_GETCURSEL, 0, 0));
+					SETINT(SzuKacz::CFG::selectedCriterion, SendMessage(methodComboBox, CB_GETCURSEL, 0, 0));
 					SETINT(SzuKacz::CFG::selectedCaseSensitive, SendMessage(caseSensitiveCheckBox, BM_GETCHECK, 0, 0) == BST_CHECKED);
 
 					LV_COLUMN lvc;
@@ -295,32 +301,32 @@ namespace SzuKacz
 					MoveWindow(groupBox, x, y, width, height, 1);
 				}
 
-				//Edit
+				//findWhatComboBox
 				{
 					x = 10;
 					y = 20;
 					width = 142;
-					height = 20;
+					height = 22;
 					MoveWindow(findWhatComboBox, x, y, width, height, 1);
 				}
 
 				//ComboBox1
 				{
-					y = 45;
-					height = 22;
-					MoveWindow(methodComboBox, x, y, width, height, 1);
-				}
-
-				//ComboBox2
-				{
-					y = 72;
+					y = 47;
 					height = 22;
 					MoveWindow(criterionComboBox, x, y, width, height, 1);
 				}
 
+				//ComboBox2
+				{
+					y = 74;
+					height = 22;
+					MoveWindow(methodComboBox, x, y, width, height, 1);
+				}
+
 				//CheckBox
 				{
-					y = 99;
+					y = 101;
 					height = 20;
 					MoveWindow(caseSensitiveCheckBox, x, y, width, height, 1);
 				}
@@ -443,7 +449,7 @@ namespace SzuKacz
 					LV_ITEM lvi;
 					lvi.mask = LVIF_TEXT|LVIF_PARAM|LVIF_IMAGE|LVIF_PARAM;
 					lvi.iSubItem = 0;
-					for(std::list<SzuKacz::Result>::iterator i = IMCtrl->searchResults.begin(); i != IMCtrl->searchResults.end(); i++)
+					for(SzuKacz::tResults::iterator i = IMCtrl->searchResults.begin(); i != IMCtrl->searchResults.end(); i++)
 					{
 						lvi.iItem = ListView_GetItemCount(resultsListView);
 						lvi.lParam = ListView_GetItemCount(resultsListView);
@@ -608,7 +614,8 @@ namespace SzuKacz
 				{
 					IMLOG("[konnektMainWindowProc]: iMsg = WM_COMMAND, lParam = QuickSearchEdit, HIWORD(wParam) = EN_CHANGE, wParam = %i, lParam = %i");
 
-					delete IMCtrl->currentQuickSearchResult;
+					if(!IMCtrl->currentQuickSearchResult)
+						delete IMCtrl->currentQuickSearchResult;
 					IMCtrl->currentQuickSearchResult = 0;
 					IMCtrl->quickSearchResults.clear();
 					ListView_SetItemState(IMCtrl->konnektRoster, -1, 0, LVIS_SELECTED|LVIS_FOCUSED);
@@ -626,7 +633,7 @@ namespace SzuKacz
 					IMCtrl->quickSearchResults = IMCtrl->findContact(field, text, method, caseSensitive);
 					if(IMCtrl->quickSearchResults.size())
 					{
-						IMCtrl->currentQuickSearchResult = new std::list<SzuKacz::Result>::iterator(IMCtrl->quickSearchResults.begin());
+						IMCtrl->currentQuickSearchResult = new SzuKacz::tResults::iterator(IMCtrl->quickSearchResults.begin());
 						IMCtrl->selectCnt(IMCtrl->konnektRoster, (*IMCtrl->currentQuickSearchResult)->cnt);
 					}
 				}
@@ -642,7 +649,7 @@ namespace SzuKacz
 								if((*IMCtrl->currentQuickSearchResult) == IMCtrl->quickSearchResults.begin())
 								{
 									delete IMCtrl->currentQuickSearchResult;
-									IMCtrl->currentQuickSearchResult = new std::list<SzuKacz::Result>::iterator((IMCtrl->quickSearchResults.end()));
+									IMCtrl->currentQuickSearchResult = new SzuKacz::tResults::iterator((IMCtrl->quickSearchResults.end()));
 								}
 								(*IMCtrl->currentQuickSearchResult)--;
 								ListView_SetItemState(IMCtrl->konnektRoster, -1, 0, LVIS_SELECTED|LVIS_FOCUSED);
@@ -660,7 +667,7 @@ namespace SzuKacz
 								if((*IMCtrl->currentQuickSearchResult) == IMCtrl->quickSearchResults.end())
 								{
 									delete IMCtrl->currentQuickSearchResult;
-									IMCtrl->currentQuickSearchResult = new std::list<SzuKacz::Result>::iterator(IMCtrl->quickSearchResults.begin());
+									IMCtrl->currentQuickSearchResult = new SzuKacz::tResults::iterator(IMCtrl->quickSearchResults.begin());
 								}
 								ListView_SetItemState(IMCtrl->konnektRoster, -1, 0, LVIS_SELECTED|LVIS_FOCUSED);
 								IMCtrl->selectCnt(IMCtrl->konnektRoster, (*IMCtrl->currentQuickSearchResult)->cnt);

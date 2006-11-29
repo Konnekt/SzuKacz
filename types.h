@@ -26,6 +26,8 @@ namespace SzuKacz
 		int net;
 	};
 
+	typedef std::list<SzuKacz::Result> tResults;
+
 	struct sUICnt
 	{
 		unsigned int net, status; //obie wartosc nie zawsze musza byc PRAWDZIWE!!!
@@ -37,7 +39,7 @@ namespace SzuKacz
 	{
 		bool operator()(Result& start, Result& end)
 		{
-			return strcoll(start.display.c_str(), end.display.c_str()) < 0;
+			return _stricoll(start.display.c_str(), end.display.c_str()) < 0;
 		}
 	};
 }

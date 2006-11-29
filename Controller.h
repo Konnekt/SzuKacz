@@ -16,7 +16,7 @@ namespace SzuKacz
 					instance = new Controller;
 				return instance;
 			}
-			std::list<Result> findContact(int field, std::string &toMatch, int relationType, bool caseSensitive, bool fromList = 1, bool save = 0);
+			SzuKacz::tResults findContact(int field, std::string &toMatch, int relationType, bool caseSensitive, bool fromList = 1, bool save = 0);
 			void openSearchWindow();
 			void quickSearchToolbarRefresh(bool move = 0);
 			void quickSearchToolbarHide(bool focusRoster = 1);
@@ -32,9 +32,9 @@ namespace SzuKacz
 			WNDPROC quickSearchToolbarOldProc; //stary proc toolbara szybkiego wyszukiwania
 			WNDPROC quickSearchEditOldProc; //stary proc edita szybkiego wyszukiwania
 			MRU* mruList; //obiekt do obs³ugi MRU
-			std::list<SzuKacz::Result> searchResults; //wyniki wyszukiwania
-			std::list<SzuKacz::Result> quickSearchResults; //wyniki szybkiego wyszukiwania
-			std::list<SzuKacz::Result>::iterator* currentQuickSearchResult; //ostatni zaznaczony wynik
+			SzuKacz::tResults searchResults; //wyniki wyszukiwania
+			SzuKacz::tResults quickSearchResults; //wyniki szybkiego wyszukiwania
+			SzuKacz::tResults::iterator* currentQuickSearchResult; //ostatni zaznaczony wynik
 			bool quickSearchToolbarVisible; //czy toolbar szybkiego wyszukiwania jest ukryty
 			bool quickSearchToolbarMoved; //czy toolbar szybkiego wyszukiwania jest przesuniêty
 

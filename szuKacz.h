@@ -68,8 +68,8 @@ namespace SzuKacz
 	//ikony
 	namespace ICO
 	{
-		const unsigned szuKacz16 = net * 1000 + 200; //identyfikator ikonki 16px
-		const unsigned szuKacz32 = net * 1000 + 201; //identyfikator ikonki 32px
+		const unsigned SzuKacz16 = net * 1000 + 200; //identyfikator ikonki 16px
+		const unsigned SzuKacz32 = net * 1000 + 201; //identyfikator ikonki 32px
 		const unsigned previous = net * 1000 + 202; //identyfikator ikonki poprzedniego wyniku
 		const unsigned next = net * 1000 + 203; //identyfikator ikonki nastêpnego wyniku
 		const unsigned criterion = net * 1000 + 204; //identyfikator ikonki kryterium
@@ -79,8 +79,8 @@ namespace SzuKacz
 	//zasoby
 	namespace RES
 	{
-		const char szuKacz16[] = "res://dll/101.ico#size=16"; //ikonka 16px
-		const char szuKacz32[] = "res://dll/102.ico#size=32"; //ikonka 32px
+		const char SzuKacz16[] = "res://dll/101.ico#size=16"; //ikonka 16px
+		const char SzuKacz32[] = "res://dll/102.ico#size=32"; //ikonka 32px
 		const char previous[] = "res://dll/103.ico#size=16"; //ikonka poprzedniego wyniku
 		const char next[] = "res://dll/104.ico#size=32"; //ikonka nastêpnego wyniku
 		const char criterion[] = "res://dll/105.ico#size=16"; //ikonka kryterium
