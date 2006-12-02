@@ -13,8 +13,8 @@
  *  @license      http://creativecommons.org/licenses/LGPL/2.1/
  */
 
-#include "stdafx.h"
-#include "includes.h"
+#include "StdAfx.h"
+#include "Includes.h"
 
 MRU::MRU(std::string name, int count, bool dtbCount) {
   this->dtbCount = dtbCount;
