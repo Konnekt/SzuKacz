@@ -32,6 +32,7 @@
 #endif
 #include <stamina/object.h>
 #include <stamina/objectimpl.h>
+#include <stamina/helpers.h>
 
 //boost
 #include <boost/signal.hpp>

@@ -11,32 +11,34 @@ namespace SzuKacz
 
 	Controller::Controller()
 	{
-		this->addStaticValue(IM_PLUG_TYPE, IMT_UI|IMT_CONFIG);
-		this->addStaticValue(IM_PLUG_PRIORITY, PLUGP_STANDARD);
-		this->addStaticValue(IM_PLUG_NAME, SzuKacz::name);
-		this->addStaticValue(IM_PLUG_SIG, SzuKacz::sig);
-		this->addStaticValue(IM_PLUG_NET, SzuKacz::net);
+		this->config = new CfgController(this);
+
+		this->setStaticValue(IM_PLUG_TYPE, IMT_UI|IMT_CONFIG);
+		this->setStaticValue(IM_PLUG_PRIORITY, PLUGP_STANDARD);
+		this->setStaticValue(IM_PLUG_NAME, SzuKacz::name);
+		this->setStaticValue(IM_PLUG_SIG, SzuKacz::sig);
+		this->setStaticValue(IM_PLUG_NET, SzuKacz::net);
 
 		this->registerObserver(IM_UI_PREPARE, bind(resolve_cast0(&Controller::onPrepare), this));
 		this->registerObserver(IM_UIACTION, bind(resolve_cast0(&Controller::onAction), this));
 
-		this->setColumn(DTCFG, SzuKacz::CFG::windowPosX, DT_CT_INT, (GetSystemMetrics(SM_CXSCREEN) / 2) - ((180-(GetSystemMetrics(SM_CXFIXEDFRAME) * 2)) / 2), "SzuKacz/Config/WindowX");
-		this->setColumn(DTCFG, SzuKacz::CFG::windowPosY, DT_CT_INT, (GetSystemMetrics(SM_CYSCREEN) / 2) - ((120 - (GetSystemMetrics(SM_CYFIXEDFRAME) * 2) + GetSystemMetrics (SM_CYCAPTION)) / 2), "SzuKacz/Config/WindowY");
-		this->setColumn(DTCFG, SzuKacz::CFG::windowWidth, DT_CT_INT, 500 + GetSystemMetrics(SM_CXFIXEDFRAME) * 2, "SzuKacz/Config/WindowWidth");
-		this->setColumn(DTCFG, SzuKacz::CFG::windowHeight, DT_CT_INT, 300 + GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION), "SzuKacz/Config/WindowHeight");
-		this->setColumn(DTCFG, SzuKacz::CFG::selectedMethod, DT_CT_INT, 0, "SzuKacz/Config/ComboBox1");
-		this->setColumn(DTCFG, SzuKacz::CFG::selectedCriterion, DT_CT_INT, 2, "SzuKacz/Config/ComboBox2");
-		this->setColumn(DTCFG, SzuKacz::CFG::selectedCaseSensitive, DT_CT_INT, 0, "SzuKacz/Config/CheckBox");
-		this->setColumn(DTCFG, SzuKacz::CFG::column0Width, DT_CT_INT, 100, "SzuKacz/Config/ListBoxColumn0");
-		this->setColumn(DTCFG, SzuKacz::CFG::column1Width, DT_CT_INT, 200, "SzuKacz/Config/ListBoxColumn1");
-		this->setColumn(DTCFG, SzuKacz::CFG::buttonPosition, DT_CT_INT, 0, "SzuKacz/ButtonPosition");
-		this->setColumn(DTCFG, SzuKacz::CFG::mruSize, DT_CT_INT, 5, "SzuKacz/MRUSize");
-		this->setColumn(DTCFG, SzuKacz::CFG::quickSearchSelectedCriterion, DT_CT_INT, 2, "SzuKacz/Criterion");
-		this->setColumn(DTCFG, SzuKacz::CFG::quickSearchSelectedMethod, DT_CT_INT, 0, "SzuKacz/Method");
-		this->setColumn(DTCFG, SzuKacz::CFG::quickSearchSelectedCaseSensitive, DT_CT_INT, 0, "SzuKacz/CaseSensitive");
-		this->setColumn(DTCFG, SzuKacz::CFG::toolbarAction, DT_CT_INT, 0, "SzuKacz/ToolbarAction");
-		this->setColumn(DTCFG, SzuKacz::CFG::quickSearchEnterAction, DT_CT_INT, 0, "SzuKacz/EnterAction");
-		this->setColumn(DTCFG, SzuKacz::CFG::quickSearchCtrlEnterAction, DT_CT_INT, 1, "SzuKacz/CtrlEnterAction");
+		config->setColumn(DTCFG, SzuKacz::CFG::windowPosX, DT_CT_INT, (GetSystemMetrics(SM_CXSCREEN) / 2) - ((180-(GetSystemMetrics(SM_CXFIXEDFRAME) * 2)) / 2), "SzuKacz/Config/WindowX");
+		config->setColumn(DTCFG, SzuKacz::CFG::windowPosY, DT_CT_INT, (GetSystemMetrics(SM_CYSCREEN) / 2) - ((120 - (GetSystemMetrics(SM_CYFIXEDFRAME) * 2) + GetSystemMetrics (SM_CYCAPTION)) / 2), "SzuKacz/Config/WindowY");
+		config->setColumn(DTCFG, SzuKacz::CFG::windowWidth, DT_CT_INT, 500 + GetSystemMetrics(SM_CXFIXEDFRAME) * 2, "SzuKacz/Config/WindowWidth");
+		config->setColumn(DTCFG, SzuKacz::CFG::windowHeight, DT_CT_INT, 300 + GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION), "SzuKacz/Config/WindowHeight");
+		config->setColumn(DTCFG, SzuKacz::CFG::selectedMethod, DT_CT_INT, 0, "SzuKacz/Config/ComboBox1");
+		config->setColumn(DTCFG, SzuKacz::CFG::selectedCriterion, DT_CT_INT, 2, "SzuKacz/Config/ComboBox2");
+		config->setColumn(DTCFG, SzuKacz::CFG::selectedCaseSensitive, DT_CT_INT, 0, "SzuKacz/Config/CheckBox");
+		config->setColumn(DTCFG, SzuKacz::CFG::column0Width, DT_CT_INT, 100, "SzuKacz/Config/ListBoxColumn0");
+		config->setColumn(DTCFG, SzuKacz::CFG::column1Width, DT_CT_INT, 200, "SzuKacz/Config/ListBoxColumn1");
+		config->setColumn(DTCFG, SzuKacz::CFG::buttonPosition, DT_CT_INT, 0, "SzuKacz/ButtonPosition");
+		config->setColumn(DTCFG, SzuKacz::CFG::mruSize, DT_CT_INT, 5, "SzuKacz/MRUSize");
+		config->setColumn(DTCFG, SzuKacz::CFG::quickSearchSelectedCriterion, DT_CT_INT, 2, "SzuKacz/Criterion");
+		config->setColumn(DTCFG, SzuKacz::CFG::quickSearchSelectedMethod, DT_CT_INT, 0, "SzuKacz/Method");
+		config->setColumn(DTCFG, SzuKacz::CFG::quickSearchSelectedCaseSensitive, DT_CT_INT, 0, "SzuKacz/CaseSensitive");
+		config->setColumn(DTCFG, SzuKacz::CFG::toolbarAction, DT_CT_INT, 0, "SzuKacz/ToolbarAction");
+		config->setColumn(DTCFG, SzuKacz::CFG::quickSearchEnterAction, DT_CT_INT, 0, "SzuKacz/EnterAction");
+		config->setColumn(DTCFG, SzuKacz::CFG::quickSearchCtrlEnterAction, DT_CT_INT, 1, "SzuKacz/CtrlEnterAction");
 
 		this->quickSearchToolbarVisible = 0;
 		this->quickSearchToolbarMoved = 0;

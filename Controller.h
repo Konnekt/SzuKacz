@@ -4,6 +4,7 @@
 
 #pragma once
 #include "IMController.h"
+#include "CfgController.h"
 
 namespace SzuKacz
 {
@@ -50,5 +51,6 @@ namespace SzuKacz
 
 		protected:
 			static SharedPtr<Controller> instance;
+			oCfgCtrl config;
 	};
 }
