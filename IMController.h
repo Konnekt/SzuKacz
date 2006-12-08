@@ -7,9 +7,9 @@
   *  @filesource
   *  @copyright    Copyright (c) 2005-2006 Sijawusz Pur Rahnama
   *  @link         svn://konnekt.info/kaway2/ kAway2 plugin SVN Repo
-  *  @version      $Revision: 94 $
+  *  @version      $Revision: 98 $
   *  @modifiedby   $LastChangedBy: sija $
-  *  @lastmodified $Date: 2006-12-06 16:59:55 +0100 (Śr, 06 gru 2006) $
+  *  @lastmodified $Date: 2006-12-08 18:27:59 +0100 (Pt, 08 gru 2006) $
   *  @license      http://creativecommons.org/licenses/LGPL/2.1/
   */
 
@@ -41,7 +41,7 @@ namespace Konnekt {
   class IMController : public SharedObject<iSharedObject>, public signals::trackable {
   public:
     /* Class version */
-	  STAMINA_OBJECT_CLASS_VERSION(IMController, iSharedObject, Version(0,2,1,0));
+    STAMINA_OBJECT_CLASS_VERSION(IMController, iSharedObject, Version(0,2,1,0));
 
   public:
     typedef function<tIMCallback(IMController*)> fOnIMessage;
@@ -125,7 +125,7 @@ namespace Konnekt {
       notifyObservers(msg);
 
       // ui action message
-      if (msg->id == IM_UIACTION) {
+      if (isAction()) {
         // notify action observers
         notifyActionObservers(msg);
 
@@ -198,7 +198,7 @@ namespace Konnekt {
     }
 
     inline bool isSublassed() {
-      if (!getAN()) return false;
+      if (!isAction()) return false;
       return isSublassed(getAN()->act.id, getAN()->act.parent);
     }
 
@@ -210,7 +210,7 @@ namespace Konnekt {
     }
 
     inline bool isForwardable() {
-      if (!getAN()) return false;
+      if (!isAction()) return false;
       return isForwardable(getAN()->act.id, getAN()->act.parent);
     }
 
@@ -222,7 +222,7 @@ namespace Konnekt {
     }
 
     inline int getPrevOwner() {
-      if (!getAN()) return sSubclassedAction::notFound;
+      if (!isAction()) return sSubclassedAction::notFound;
       return getPrevOwner(getAN()->act.id, getAN()->act.parent);
     }
 
@@ -233,7 +233,7 @@ namespace Konnekt {
     }
 
     inline void setForwardable(bool set) {
-      if (!getAN()) return;
+      if (!isAction()) return;
       return setForwardable(getAN()->act.id, getAN()->act.parent, set);
     }
 
@@ -248,7 +248,7 @@ namespace Konnekt {
     }
 
     inline IMController* forwardAction(bool _setReturnCode = true) {
-      if (isSublassed()) {
+      if (isAction() && isSublassed()) {
         int retValue = Ctrl->IMessageDirect(IM_UIACTION, getPrevOwner(), (int) getAN());
         if (_setReturnCode) setReturnCode(retValue);
       }
@@ -306,14 +306,18 @@ namespace Konnekt {
       return im;
     }
 
-    inline sUIActionNotify_2params* getAN() {
-      if (getIM()->id != IM_UIACTION) return NULL;
-      return static_cast<sUIActionNotify_2params*>((sUIActionNotify_base*) getIM()->p1);
-    }
-
     inline IMController* setIM(sIMessage_2params* im) { 
       this->im = im;
       return this;
+    }
+
+    inline bool isAction() {
+      return getIM()->id == IM_UIACTION;
+    }
+
+    inline sUIActionNotify_2params* getAN() {
+      if (!isAction()) return NULL;
+      return static_cast<sUIActionNotify_2params*>((sUIActionNotify_base*) getIM()->p1);
     }
 
     inline void setStaticValue(int id, int value) {
