@@ -658,7 +658,6 @@ namespace SzuKacz
 								(*IMCtrl->currentQuickSearchResult)--;
 								ListView_SetItemState(IMCtrl->konnektRoster, -1, 0, LVIS_SELECTED|LVIS_FOCUSED);
 								IMCtrl->selectCnt(IMCtrl->konnektRoster, (*IMCtrl->currentQuickSearchResult)->cnt);
-						
 							}
 							break;
 						}
