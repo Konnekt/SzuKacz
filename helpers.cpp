@@ -30,10 +30,10 @@ namespace SzuKacz
 	//funkcja wywo³uj¹ca akcjê
 	void callAction(sUIAction act)
 	{
-		sUIActionNotify_2params akcja =	sUIActionNotify_2params();											
-		akcja.act = act;
-		akcja.code = ACTN_ACTION;
-		ICMessage(IMI_ACTION_CALL, (int)&akcja, 0);
+		sUIActionNotify_2params an = sUIActionNotify_2params();											
+		an.act = act;
+		an.code = ACTN_ACTION;
+		ICMessage(IMI_ACTION_CALL, (int)&an, 0);
 	}
 
 	//funkcja wywo³uj¹ca akcjê
@@ -47,7 +47,7 @@ namespace SzuKacz
 	{
 		int actionCount = ICMessage(IMI_GROUP_ACTIONSCOUNT, (int)&sUIAction(IMIG_MAINWND, IMIG_CNT, cnt));
 		int actionID = 0;
-		for(int i=0;i<actionCount;i++)
+		for(int i = 0; i < actionCount; i++)
 		{
 			actionID = ICMessage(IMI_ACTION_GETID, IMIG_CNT, i);
 			if(!actionID)
@@ -82,7 +82,9 @@ namespace SzuKacz
 	//funkcja otwieraj¹ca okno w³aœciwoœci dla danego kontaktu
 	void openInfoWindow(int cnt)
 	{
-		SzuKacz::callAction(IMIA_NFO_DETAILS_NET, IMIA_MSG_INFO, cnt);
+		if (ICMessage(IMC_CNT_IDEXISTS, cnt, 0)) {
+		  ICMessage(IMI_CNT_DETAILS, cnt, 0);
+		}
 	}
 
 	//funkcja odpalaj¹ca domyœln¹ akcjê
