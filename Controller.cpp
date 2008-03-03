@@ -42,6 +42,7 @@ namespace SzuKacz
 
 		this->quickSearchToolbarVisible = 0;
 		this->quickSearchToolbarMoved = 0;
+		this->currentQuickSearchResult = 0;
 	}
 
 	void Controller::onPrepare()
